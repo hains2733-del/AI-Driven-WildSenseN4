@@ -1,31 +1,24 @@
+// backend/models/User.js
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema(
   {
-    fullName: {
+    name: {
       type: String,
-      required: true,
+      required: [true, "Vui lòng nhập tên"],
     },
-
     email: {
       type: String,
-      required: true,
-      unique: true,
+      required: [true, "Vui lòng nhập email"],
+      unique: true, // Không được trùng lặp email
+      trim: true,
     },
-
     password: {
       type: String,
-      required: true,
-    },
-
-    role: {
-      type: String,
-      default: "user",
+      required: [true, "Vui lòng nhập mật khẩu"],
     },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true } // Tự động thêm thời gian tạo (createdAt) và cập nhật (updatedAt)
 );
 
 module.exports = mongoose.model("User", userSchema);
